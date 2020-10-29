@@ -1,21 +1,23 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\User;
 
-use \Slim\Views\Twig as View;
-
-class HomeController
+class HomeController extends Controller
 {
-
-    protected $view;
-
-    public function __construct(View $view)
-    {
-        $this->view = $view;
-    }
 
     public function index($request, $response)
     {
+
+        $user = User::create([
+            'first_name'    => "Den",
+            'last_name'     => "TOP",
+            'email'         => "cool.den0@yandex.ru",
+            'password'      => "global"
+        ]);
+       
+        var_dump($user);
+        die();
         return $this->view->render($response, 'home.twig');
     }
 }
