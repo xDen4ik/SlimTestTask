@@ -4,6 +4,7 @@ namespace App\Controllers\Auth;
 
 use App\Models\User;
 use App\Controllers\Controller;
+
 use Respect\Validation\Validator as v;
 
 class AuthController extends Controller
@@ -43,6 +44,8 @@ class AuthController extends Controller
             'password'      => password_hash($request->getParam('password'), PASSWORD_DEFAULT)
         ]);
 
+  
+
         $this->auth->attempt($request->getParam('email'), $request->getParam('password'));
 
         return $response->withRedirect($this->router->pathfor('home'));
@@ -68,10 +71,11 @@ class AuthController extends Controller
         );
 
         if (!$auth) {
+            $this->flash->addMessage('error', 'Oops. It looks like you were wrong!');  
             return $response->withRedirect($this->router->pathfor('outh.signin'));
         }
-
-        $this->auth->attempt($request->getParam('email'), $request->getParam('password'));
+       
+        $this->flash->addMessage('success', 'You have been signed up!');  
 
         return $response->withRedirect($this->router->pathfor('home'));
     }

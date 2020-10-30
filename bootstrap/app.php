@@ -59,10 +59,12 @@ $container['view'] = function ($container) {
     $view->getEnvironment()->addGlobal(
         'auth',
         [
-            'check' => $container->auth->check(),
-            'user' => $container->auth->user(),
+            'check'                     => $container->auth->check(),
+            'user'                      => $container->auth->user(),
         ]
     );
+
+    $view->getEnvironment()->addGlobal('flash', $container->flash);
 
     $view->addExtension(new \Slim\Views\TwigExtension(
         $container->router,
