@@ -1,54 +1,70 @@
 {% extends 'templates/app.twig' %}
 {% block content %}
-	<form action="{{ path_for('outh.signup') }}" method="post">
+<form action="{{ path_for('outh.signup') }}" method="post">
 
-		<div class="form-group">
-			<label for="uname">Username:</label>
-			<input type="text" class="form-control" id="first_name" placeholder="Enter username" name="first_name" required>
-		</div>
+	<div class="form-group{{ errors.first_name ? ' has-error' : ''}}">
+		<label for="uname">Username:</label>
+		<input type="text" class="form-control" id="first_name" placeholder="Enter username" name="first_name"
+			value="{{ old.first_name}}">
+		{% if errors.first_name %}
+		<span class="help-block">{{ errors.first_name | first}}</span>
+		{% endif %}
+	</div>
 
-		<div class="form-group">
-			<label for="uname">Last Name:</label>
-			<input type="text" class="form-control" id="last_name" placeholder="Enter last name" name="last_name" required>
-		</div>
+	<div class="form-group{{ errors.last_name ? ' has-error' : ''}}">
+		<label for="uname">Last Name:</label>
+		<input type="text" class="form-control" id="last_name" placeholder="Enter last name" name="last_name"
+			value="{{ old.last_name}}">
+		{% if errors.last_name %}
+		<span class="help-block">{{ errors.last_name | first}}</span>
+		{% endif %}
+	</div>
 
-		<div class="form-group">
-			<label for="uname">Email:</label>
-			<input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
-		</div>
 
-		<div class="form-group">
-			<label for="pwd">Password:</label>
-			<input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required>
-		</div>
+	<div class="form-group{{ errors.email ? ' has-error' : ''}}">
+		<label for="uname">Email:</label>
+		<input type="email" class="form-control" id="email" placeholder="Enter email" name="email"
+			value="{{ old.email}} ">
+		{% if errors.email %}
+		<span class=" help-block">{{ errors.email | first}}</span>
+		{% endif %}
+	</div>
 
-		<div class="form-group form-check">
-			<label class="form-check-label">
-				<input class="form-check-input" type="checkbox" name="remember" required>
-				I agree to watch gay p#rn.
-				<div class="invalid-feedback">Check this checkbox to continue.</div>
-			</label>
-		</div>
-		<button type="submit" class="btn btn-primary">Submit</button>
-	</form>
+	<div class="form-group{{ errors.password ? ' has-error' : ''}}">
+		<label for="pwd">Password:</label>
+		<input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
+		{% if errors.password %}
+		<span class="help-block">{{ errors.password | first}}</span>
+		{% endif %}
+	</div>
 
-	<script>
-		// Disable form submissions if there are invalid fields
-(function () {
-'use strict';
-window.addEventListener('load', function () { // Get the forms we want to add validation styles to
-var forms = document.getElementsByClassName('needs-validation');
-// Loop over them and prevent submission
-var validation = Array.prototype.filter.call(forms, function (form) {
-form.addEventListener('submit', function (event) {
-if (form.checkValidity() === false) {
-event.preventDefault();
-event.stopPropagation();
-}
-form.classList.add('was-validated');
-}, false);
-});
-}, false);
-})();
-	</script>
+	<div class="form-group form-check">
+		<label class="form-check-label">
+			<input class="form-check-input" type="checkbox" name="remember" required>
+			I agree to watch gay p#rn.
+			<div class="invalid-feedback">Check this checkbox to continue.</div>
+		</label>
+	</div>
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+	// Disable form submissions if there are invalid fields
+	(function () {
+		'use strict';
+		window.addEventListener('load', function () { // Get the forms we want to add validation styles to
+			var forms = document.getElementsByClassName('needs-validation');
+			// Loop over them and prevent submission
+			var validation = Array.prototype.filter.call(forms, function (form) {
+				form.addEventListener('submit', function (event) {
+					if (form.checkValidity() === false) {
+						event.preventDefault();
+						event.stopPropagation();
+					}
+					form.classList.add('was-validated');
+				}, false);
+			});
+		}, false);
+	})();
+</script>
 {% endblock %}

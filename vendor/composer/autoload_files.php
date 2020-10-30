@@ -11,4 +11,5 @@ return array(
     '5255c38a0faeba867671b61dfda6d864' => $vendorDir . '/paragonie/random_compat/lib/random.php',
     '320cde22f66dd4f5d3fd621d3e88b98f' => $vendorDir . '/symfony/polyfill-ctype/bootstrap.php',
     '72579e7bd17821bb1321b87411366eae' => $vendorDir . '/illuminate/support/helpers.php',
+    '2df68f9e79c919e2d88506611769ed2e' => $vendorDir . '/respect/stringifier/src/stringify.php',
 );

@@ -63,5 +63,12 @@ $container['AuthController'] = function ($container) {
     return new App\Controllers\Auth\AuthController($container);
 };
 
+$container['validator'] = function ($container) {
+
+    return new App\Validation\Validator;
+};
+
+$app->add(new \App\Middleware\ValidationErrorsMiddleWare($container));
+$app->add(new \App\Middleware\OldInputMiddleWare($container));
 
 require __DIR__ . '/../app/routes.php';

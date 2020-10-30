@@ -12,6 +12,7 @@ class ComposerStaticInitc72b5bde4fa2bf02dc0c06ed62d2f0d2
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+        '2df68f9e79c919e2d88506611769ed2e' => __DIR__ . '/..' . '/respect/stringifier/src/stringify.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -27,6 +28,11 @@ class ComposerStaticInitc72b5bde4fa2bf02dc0c06ed62d2f0d2
             'Symfony\\Component\\Translation\\' => 30,
             'Slim\\Views\\' => 11,
             'Slim\\' => 5,
+        ),
+        'R' => 
+        array (
+            'Respect\\Validation\\' => 19,
+            'Respect\\Stringifier\\' => 20,
         ),
         'P' => 
         array (
@@ -83,6 +89,14 @@ class ComposerStaticInitc72b5bde4fa2bf02dc0c06ed62d2f0d2
         'Slim\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/slim/Slim',
+        ),
+        'Respect\\Validation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/respect/validation/library',
+        ),
+        'Respect\\Stringifier\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/respect/stringifier/src',
         ),
         'Psr\\Http\\Message\\' => 
         array (
