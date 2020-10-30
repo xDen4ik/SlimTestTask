@@ -1,17 +1,24 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/public">Test Task Slim PHP</a>
+      <a class="navbar-brand" href="/public/auth">Test Task Slim PHP</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="/public">Home</a></li>
+      <li class="active"><a href="/public/auth">Home</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
+      {% if auth.check %}
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"> Admin {{ auth.user.first_name }}</a>
+        <ul class="dropdown-menu">
+          <li><a href="/public/auth/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="{{ path_for('outh.signout')}}"><span class="glyphicon glyphicon-log-in"></span>LogOut</a></li>
+        </ul>
+      </li>
+      {% else %}
       <li><a href="/public/auth/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a href="/public/auth/signin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      {% endif %}
     </ul>
   </div>
 </nav>
-
-
-

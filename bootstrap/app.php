@@ -36,6 +36,17 @@ $container['db'] = function ($container) use ($capsule) {
     return $capsule;
 };
 
+
+$container['auth'] = function ($container) {
+
+    return new App\Auth\Auth;
+};
+
+$container['flash'] = function ($container) {
+
+    return new Slim\Flash\Messages;
+};
+
 $container['view'] = function ($container) {
 
     $view = new \Slim\Views\Twig(
@@ -45,10 +56,19 @@ $container['view'] = function ($container) {
         ]
     );
 
+    $view->getEnvironment()->addGlobal(
+        'auth',
+        [
+            'check' => $container->auth->check(),
+            'user' => $container->auth->user(),
+        ]
+    );
+
     $view->addExtension(new \Slim\Views\TwigExtension(
         $container->router,
         $container->request->getUri()
     ));
+
 
     return $view;
 };
@@ -67,6 +87,8 @@ $container['validator'] = function ($container) {
 
     return new App\Validation\Validator;
 };
+
+
 
 $app->add(new \App\Middleware\ValidationErrorsMiddleWare($container));
 $app->add(new \App\Middleware\OldInputMiddleWare($container));

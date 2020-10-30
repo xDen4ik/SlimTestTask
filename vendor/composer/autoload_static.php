@@ -27,6 +27,7 @@ class ComposerStaticInitc72b5bde4fa2bf02dc0c06ed62d2f0d2
             'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Component\\Translation\\' => 30,
             'Slim\\Views\\' => 11,
+            'Slim\\Flash\\' => 11,
             'Slim\\' => 5,
         ),
         'R' => 
@@ -85,6 +86,10 @@ class ComposerStaticInitc72b5bde4fa2bf02dc0c06ed62d2f0d2
         'Slim\\Views\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/twig-view/src',
+        ),
+        'Slim\\Flash\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/slim/flash/src',
         ),
         'Slim\\' => 
         array (

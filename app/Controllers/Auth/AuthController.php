@@ -12,6 +12,9 @@ class AuthController extends Controller
     //Render view
     public function getSignUp($request, $response)
     {
+        if (!empty($this->auth->check())) {
+            return $response->withRedirect($this->router->pathfor('home'));
+        }
         return $this->view->render($response, 'auth/signup.twig');
     }
 
@@ -39,11 +42,45 @@ class AuthController extends Controller
             'email'         => $request->getParam('email'),
             'password'      => password_hash($request->getParam('password'), PASSWORD_DEFAULT)
         ]);
+
+        $this->auth->attempt($request->getParam('email'), $request->getParam('password'));
+
         return $response->withRedirect($this->router->pathfor('home'));
     }
 
+
+    //Render view login 
     public function getSignIn($request, $response)
     {
+        if (!empty($this->auth->check())) {
+            return $response->withRedirect($this->router->pathfor('home'));
+        }
         return $this->view->render($response, 'auth/signin.twig');
+    }
+
+    //Login data
+    public function postSignIn($request, $response)
+    {
+        //check
+        $auth = $this->auth->attempt(
+            $request->getParam('email'),
+            $request->getParam('password')
+        );
+
+        if (!$auth) {
+            return $response->withRedirect($this->router->pathfor('outh.signin'));
+        }
+
+        $this->auth->attempt($request->getParam('email'), $request->getParam('password'));
+
+        return $response->withRedirect($this->router->pathfor('home'));
+    }
+
+
+    public function getSignOut($request, $response)
+    {
+        $this->auth->logout();
+
+        return $response->withRedirect($this->router->pathfor('home'));
     }
 }

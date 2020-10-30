@@ -1,0 +1,44 @@
+{% extends 'templates/app.twig' %}
+{% block content %}
+<form action="{{ path_for('outh.signin') }}" method="post">
+
+	<div class="form-group{{ errors.email ? ' has-error' : ''}}">
+		<label for="uname">Email:</label>
+		<input type="email" class="form-control" id="email" placeholder="Enter email" name="email"
+			value="{{ old.email}} ">
+		{% if errors.email %}
+		<span class=" help-block">{{ errors.email | first}}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group{{ errors.password ? ' has-error' : ''}}">
+		<label for="pwd">Password:</label>
+		<input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
+		{% if errors.password %}
+		<span class="help-block">{{ errors.password | first}}</span>
+		{% endif %}
+	</div>
+
+	<button type="submit" class="btn btn-primary">Sign in</button>
+</form>
+
+<script>
+	// Disable form submissions if there are invalid fields
+	(function () {
+		'use strict';
+		window.addEventListener('load', function () { // Get the forms we want to add validation styles to
+			var forms = document.getElementsByClassName('needs-validation');
+			// Loop over them and prevent submission
+			var validation = Array.prototype.filter.call(forms, function (form) {
+				form.addEventListener('submit', function (event) {
+					if (form.checkValidity() === false) {
+						event.preventDefault();
+						event.stopPropagation();
+					}
+					form.classList.add('was-validated');
+				}, false);
+			});
+		}, false);
+	})();
+</script>
+{% endblock %}
