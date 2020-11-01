@@ -31,7 +31,7 @@ class Auth
         }
 
         if (password_verify($password, $user->password)) {
-            setcookie("user", $user->id);
+            setcookie("user", $user->id, time() + 604800, "/");
             $this->user_log($user->id);
             return true;
         }
@@ -42,7 +42,7 @@ class Auth
 
     public function logout()
     {
-        setcookie("user", "", time() - 3600);
+        setcookie("user", "", time() - 3600, "/");
     }
 
     public function user_log($id)

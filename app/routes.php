@@ -13,3 +13,9 @@ $app->post('/auth/signin', 'AuthController:postSignIn');
 
 //SignOut
 $app->get('/auth/signout', 'AuthController:getSignOut')->setName('outh.signout');
+
+//admin
+$app->get('/admin/users', 'AdminController:getUsers')->setName('admin.users');
+$app->get('/admin/edit/{id:[0-9]+}', 'AdminController:getUser')->setName('admin.edit');
+
+$app->post('/update', 'AdminController:updateUser')->setName('admin.update');;

@@ -1,0 +1,38 @@
+{% extends 'templates/app.twig' %}
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th scope="col">id</th>
+							<th scope="col">first_name</th>
+							<th scope="col">last_name</th>
+							<th scope="col">email</th>
+							<th scope="col">action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in users %}
+							<tr>
+								<td>{{ user.id }}</td>
+								<td>{{ user.first_name }}</td>
+								<td>{{ user.last_name }}</td>
+								<td>{{ user.email }}</td>
+								<td>
+									<a href="/public/admin/edit/{{user.id }}">
+										<button type="button" class="btn btn-success">
+											<i class="glyphicon glyphicon-edit"></i>
+										</button>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</tr>
+			</tbody>
+		</tbody>
+	</td>
+</tr></table></tbody></div></div></div>{% endblock %}
