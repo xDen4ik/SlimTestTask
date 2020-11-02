@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\UserLogs;
 use App\Controllers\Controller;
 
 use Respect\Validation\Validator as v;
@@ -48,7 +49,7 @@ class AdminController extends Controller
                 'password' => v::noWhitespace()->notEmpty()->length(5, null),
             ]
         );
-        
+
 
         if ($validation->failed()) {
             return $response->withRedirect($this->router->pathFor(
@@ -66,5 +67,16 @@ class AdminController extends Controller
         }
         $user->save();
         return $response->withRedirect($this->router->pathFor('admin.users'));
+    }
+
+    public function getUsersLogs($request, $response)
+    {
+        $logs = UserLogs::leftJoin('sessions', 'user_logs.session_id', '=', 'sessions.session_id')
+            ->leftJoin('users', 'users.id', '=', 'user_logs.user_id')
+            ->select('users.first_name', 'users.last_name', 'users.email', 'user_logs.created_at', 'sessions.device_type', 'sessions.browser', 'user_logs.log_id', 'sessions.user_ip')
+            ->orderByRaw('user_logs.log_id DESC')
+            ->get();
+
+        return $this->view->render($response, 'admin/logs.twig', ['logs' => $logs]);
     }
 }

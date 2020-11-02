@@ -1,5 +1,8 @@
 <?php
 
+
+$app->get('/', 'HomeController:main')->setName('main');
+
 //Home page
 $app->get('/auth', 'HomeController:index')->setName('home');
 
@@ -14,8 +17,10 @@ $app->post('/auth/signin', 'AuthController:postSignIn');
 //SignOut
 $app->get('/auth/signout', 'AuthController:getSignOut')->setName('outh.signout');
 
-//admin
+//admin users
 $app->get('/admin/users', 'AdminController:getUsers')->setName('admin.users');
 $app->get('/admin/edit/{id:[0-9]+}', 'AdminController:getUser')->setName('admin.edit');
+$app->post('/update', 'AdminController:updateUser')->setName('admin.update');
 
-$app->post('/update', 'AdminController:updateUser')->setName('admin.update');;
+//admin logs
+$app->get('/admin/logs', 'AdminController:getUsersLogs')->setName('admin.logs');

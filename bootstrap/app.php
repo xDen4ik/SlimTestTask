@@ -50,7 +50,7 @@ $container['flash'] = function ($container) {
 $container['view'] = function ($container) {
 
     $view = new \Slim\Views\Twig(
-        __DIR__ . '/../resources/views',
+        $_SERVER['DOCUMENT_ROOT'] . '/resources/views',
         [
             'cache' => false,
         ]
@@ -99,4 +99,4 @@ $container['validator'] = function ($container) {
 $app->add(new \App\Middleware\ValidationErrorsMiddleWare($container));
 $app->add(new \App\Middleware\OldInputMiddleWare($container));
 
-require __DIR__ . '/../app/routes.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/app/routes.php';

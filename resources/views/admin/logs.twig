@@ -1,0 +1,36 @@
+{% extends 'templates/app.twig' %}
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th scope="col">first_name</th>
+							<th scope="col">last_name</th>
+							<th scope="col">email</th>
+							<th scope="col">ip address</th>
+							<th scope="col">device type</th>
+							<th scope="col">browser</th>
+							<th scope="col">time</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in logs %}
+							<tr>
+								<td>{{ user.first_name }}</td>
+								<td>{{ user.last_name }}</td>
+								<td>{{ user.email }}</td>
+								<td>{{ user.user_ip }}</td>
+								<td>{{ user.device_type }}</td>
+								<td>{{ user.browser }}</td>
+								<td>{{ user.created_at }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</tr>
+			</tbody>
+		</tbody>
+	</td>
+</tr></table></tbody></div></div></div>{% endblock %}

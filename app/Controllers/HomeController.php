@@ -63,4 +63,11 @@ class HomeController extends Controller
     {
         return $this->view->render($response, 'home.twig');
     }
+
+    public function main($request, $response)
+    {
+        return $response->withRedirect($this->router->pathfor('home'));
+    }
+
+
 }
