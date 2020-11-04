@@ -30,7 +30,7 @@
 
 		<div class="form-group{{ errors.password ? ' has-error' : ''}}">
 			<label for="pwd">Password:</label>
-			<input type="password" class="form-control" id="pwd" placehuserer="Enter password" name="password" value="{{user.password}}">
+			<input type="password" class="form-control" id="pwd" placehuserer="Enter password" name="password">
 			{% if errors.password %}
 				<span class="help-block">{{ errors.password | first}}</span>
 			{% endif %}

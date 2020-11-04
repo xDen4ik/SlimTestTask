@@ -5,6 +5,7 @@ namespace App\Auth;
 use App\Models\User;
 use App\Models\Sessions;
 use App\Models\UserLogs;
+use \Firebase\JWT\JWT;
 
 class Auth
 {
@@ -22,7 +23,7 @@ class Auth
     }
 
 
-    public function attempt($email, $password)
+    public function attempt($email, $password, $action)
     {
         $user = User::where('email', $email)->first();
 
@@ -31,8 +32,16 @@ class Auth
         }
 
         if (password_verify($password, $user->password)) {
-            setcookie("user", $user->id, time() + 604800, "/");
-            $this->user_log($user->id);
+
+            $key = "mykeyforusercookie";
+            $payload = array(
+                "id" => $user->id
+            );
+
+            $jwt = JWT::encode($payload, $key);
+    
+            setcookie("user", $jwt, time() + 604800, "/");
+            $this->user_log($user->id, $action);
             return true;
         }
 
@@ -45,7 +54,7 @@ class Auth
         setcookie("user", "", time() - 3600, "/");
     }
 
-    public function user_log($id)
+    public function user_log($id, $action)
     {
         $browser = $this->get_browser_name();
 
@@ -58,7 +67,8 @@ class Auth
             'user_id'       => $id,
             'user_ip'       => $ip,
             'device_type'   => $device_type,
-            'browser'       => $browser
+            'browser'       => $browser,
+            'action'        => $action
         ]);
 
 

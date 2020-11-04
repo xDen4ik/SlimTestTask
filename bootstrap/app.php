@@ -1,5 +1,9 @@
 <?php
 
+use Respect\Validation\Validator as v;
+use Respect\Validation\Factory;
+
+
 session_start();
 
 require  '../vendor/autoload.php';
@@ -98,5 +102,12 @@ $container['validator'] = function ($container) {
 
 $app->add(new \App\Middleware\ValidationErrorsMiddleWare($container));
 $app->add(new \App\Middleware\OldInputMiddleWare($container));
+
+Factory::setDefaultInstance(
+    (new Factory())
+        ->withRuleNamespace('App\\Validation\\Rules\\')
+        ->withExceptionNamespace('App\\Validation\\Exceptions\\')
+);
+
 
 require $_SERVER['DOCUMENT_ROOT'] . '/app/routes.php';

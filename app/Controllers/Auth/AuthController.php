@@ -4,8 +4,8 @@ namespace App\Controllers\Auth;
 
 use App\Models\User;
 use App\Controllers\Controller;
-
 use Respect\Validation\Validator as v;
+use App\Validation\Validator;
 
 class AuthController extends Controller
 {
@@ -28,10 +28,11 @@ class AuthController extends Controller
             [
                 'first_name' => v::noWhitespace()->notEmpty()->length(1, 20),
                 'last_name' => v::noWhitespace()->notEmpty()->length(1, 20),
-                'email' => v::email(),
+                'email' => v::email()->EmailEvalible(),
                 'password' => v::noWhitespace()->notEmpty()->length(5, null),
             ]
         );
+
 
         if ($validation->failed()) {
             return $response->withRedirect($this->router->pathfor('outh.signup'));
@@ -44,9 +45,9 @@ class AuthController extends Controller
             'password'      => password_hash($request->getParam('password'), PASSWORD_DEFAULT)
         ]);
 
-  
 
-        $this->auth->attempt($request->getParam('email'), $request->getParam('password'));
+
+        $this->auth->attempt($request->getParam('email'), $request->getParam('password'), "registration");
 
         return $response->withRedirect($this->router->pathfor('home'));
     }
@@ -67,15 +68,16 @@ class AuthController extends Controller
         //check
         $auth = $this->auth->attempt(
             $request->getParam('email'),
-            $request->getParam('password')
+            $request->getParam('password'),
+            "login"
         );
 
         if (!$auth) {
-            $this->flash->addMessage('error', 'Oops. It looks like you were wrong!');  
+            $this->flash->addMessage('error', 'Oops. It looks like you were wrong!');
             return $response->withRedirect($this->router->pathfor('outh.signin'));
         }
-       
-        $this->flash->addMessage('success', 'You have been signed up!');  
+
+        $this->flash->addMessage('success', 'You have been signed up!');
 
         return $response->withRedirect($this->router->pathfor('home'));
     }

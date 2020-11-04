@@ -15,6 +15,7 @@ class Sessions extends Model
         'user_id',
         'user_ip',
         'device_type',
-        'browser'
+        'browser',
+        'action',
     ];
 }
